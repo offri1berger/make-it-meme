@@ -3,8 +3,9 @@ import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
-import logger from './lib/logger.js';
-import { env } from './config/env.js';
+import logger from './lib/logger';
+import { env } from './config/env';
+import { redis } from './cache/connection';
 
 const app = express();
 
@@ -16,7 +17,7 @@ app.use(express.json());
 // Rate limiting
 app.use(
   rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
+    windowMs: 15 * 60 * 1000,
     max: 100,
   })
 );
@@ -26,7 +27,11 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
 });
 
-// Start server
-app.listen(env.PORT, () => {
-  logger.info(`Server running on port ${env.PORT}`);
-});
+async function start() {
+  await redis.connect();
+  app.listen(env.PORT, () => {
+    logger.info(`Server running on port ${env.PORT}`);
+  });
+}
+
+start();
