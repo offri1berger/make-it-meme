@@ -1,4 +1,5 @@
 import './config/env';
+import http from 'http';
 import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
@@ -7,8 +8,10 @@ import logger from './lib/logger';
 import { env } from './config/env';
 import { redis } from './cache/connection';
 import roomRoutes from './routes/rooms';
+import { initSocketServer } from './websocket';
 
 const app = express();
+const httpServer = http.createServer(app);
 
 // Security middleware
 app.use(helmet());
@@ -31,9 +34,12 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
 });
 
+// Socket.io
+initSocketServer(httpServer);
+
 async function start() {
   await redis.connect();
-  app.listen(env.PORT, () => {
+  httpServer.listen(env.PORT, () => {
     logger.info(`Server running on port ${env.PORT}`);
   });
 }
