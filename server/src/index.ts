@@ -6,6 +6,7 @@ import rateLimit from 'express-rate-limit';
 import logger from './lib/logger';
 import { env } from './config/env';
 import { redis } from './cache/connection';
+import roomRoutes from './routes/rooms';
 
 const app = express();
 
@@ -21,6 +22,9 @@ app.use(
     max: 100,
   })
 );
+
+// Routes
+app.use('/api/rooms', roomRoutes);
 
 // Health check
 app.get('/health', (req, res) => {
