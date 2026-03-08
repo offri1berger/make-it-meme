@@ -9,6 +9,7 @@ import { env } from './config/env';
 import { redis } from './cache/connection';
 import roomRoutes from './routes/rooms';
 import { initSocketServer } from './websocket';
+import './workers/roundTimerWorker';
 
 const app = express();
 const httpServer = http.createServer(app);
