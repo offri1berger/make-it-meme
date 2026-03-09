@@ -10,11 +10,14 @@
     "migrate": "node-pg-migrate",
     "migrate:create": "node-pg-migrate create --migrations-dir src/db/migrations --migration-file-language ts",
     "migrate:up": "node-pg-migrate up --migrations-dir src/db/migrations --envPath .env",
-    "migrate:down": "node-pg-migrate down --migrations-dir src/db/migrations --envPath .env"
+    "migrate:down": "node-pg-migrate down --migrations-dir src/db/migrations --envPath .env",
+    "seed": "tsx src/db/seed.ts",
+    "template:add": "tsx src/db/addTemplate.ts"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
+    "@types/multer": "^2.1.0",
     "@types/node": "^24.11.1",
     "@types/pg": "^8.18.0",
     "kysely-codegen": "^0.20.0",
@@ -25,6 +28,7 @@
   "dependencies": {
     "@make-it-meme/shared": "workspace:*",
     "bullmq": "^5.70.4",
+    "cloudinary": "^2.9.0",
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
@@ -32,6 +36,7 @@
     "helmet": "^8.1.0",
     "ioredis": "^5.10.0",
     "kysely": "^0.28.11",
+    "multer": "^2.1.1",
     "nanoid": "^5.1.6",
     "node-pg-migrate": "^8.0.4",
     "pg": "^8.20.0",
