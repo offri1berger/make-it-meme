@@ -1,13 +1,14 @@
 import { Server } from 'socket.io';
 import { Server as HttpServer } from 'http';
 import logger from '../lib/logger';
+import { env } from '../config/env';
 import { registerRoomHandlers } from './roomHandlers';
 import { registerGameHandlers } from './gameHandlers';
 
 export const initSocketServer = (httpServer: HttpServer): Server => {
   const io = new Server(httpServer, {
     cors: {
-      origin: 'http://localhost:5173',
+      origin: env.CORS_ORIGIN,
       methods: ['GET', 'POST'],
     },
     transports: ['websocket', 'polling'],
