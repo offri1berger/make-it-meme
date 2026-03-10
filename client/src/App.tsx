@@ -1,8 +1,15 @@
+import { Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import GamePage from './pages/GamePage';
+import LobbyPage from './pages/LobbyPage';
+
 const App = () => {
   return (
-    <div>
-      <h1>Make it Meme</h1>
-    </div>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/game/:roomCode" element={<GamePage />} />
+      <Route path="/lobby/:roomCode" element={<LobbyPage />} />
+    </Routes>
   );
 };
 
