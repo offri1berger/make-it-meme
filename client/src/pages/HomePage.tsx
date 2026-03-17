@@ -22,8 +22,8 @@ const HomePage = () => {
       setError('');
       const res = await axios.post(`${API_URL}/api/rooms`, { nickname });
       const { roomCode, playerId } = res.data;
-      localStorage.setItem('playerId', playerId);
-      localStorage.setItem('nickname', nickname);
+      sessionStorage.setItem('playerId', playerId);
+      sessionStorage.setItem('nickname', nickname);
       navigate(`/lobby/${roomCode}`);
     } catch (err: any) {
       setError(err.response?.data?.error ?? 'Failed to create room');
@@ -48,8 +48,8 @@ const HomePage = () => {
         nickname,
       });
       const { playerId } = res.data;
-      localStorage.setItem('playerId', playerId);
-      localStorage.setItem('nickname', nickname);
+      sessionStorage.setItem('playerId', playerId);
+      sessionStorage.setItem('nickname', nickname);
       navigate(`/lobby/${roomCode}`);
     } catch (err: any) {
       setError(err.response?.data?.error ?? 'Failed to join room');
@@ -147,7 +147,6 @@ const HomePage = () => {
                 fontSize: '0.75rem',
                 fontWeight: 600,
                 letterSpacing: '0.1em',
-                textTransform: 'uppercase',
                 display: 'block',
                 marginBottom: '0.5rem',
               }}
@@ -251,7 +250,7 @@ const HomePage = () => {
                 }}
                 placeholder="ROOM CODE"
                 value={roomCode}
-                onChange={(e) => setRoomCode(e.target.value.toUpperCase())}
+                onChange={(e) => setRoomCode(e.target.value)}
                 maxLength={8}
                 onFocus={(e) => (e.target.style.borderColor = '#a855f7')}
                 onBlur={(e) => (e.target.style.borderColor = '#333')}

@@ -27,7 +27,7 @@ const LobbyPage = () => {
   const [roomState, setRoomState] = useState<RoomState | null>(null);
   const [error, setError] = useState('');
 
-  const playerId = localStorage.getItem('playerId');
+  const playerId = sessionStorage.getItem('playerId');
 
   useEffect(() => {
     if (!playerId || !roomCode) return;
